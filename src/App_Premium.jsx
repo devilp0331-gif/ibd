@@ -470,6 +470,18 @@ function App() {
             </div>
           </motion.div>
         </motion.div>
+
+        {/* Small Preview Button */}
+        <motion.button
+          onClick={() => setStage(1)}
+          className="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-xs transition-all"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          whileHover={{ opacity: 1, scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          👀
+        </motion.button>
       </div>
     );
   }
