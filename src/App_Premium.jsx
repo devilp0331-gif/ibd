@@ -275,6 +275,7 @@ function App() {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [showVideoPlayer, setShowVideoPlayer] = useState(false);
+  const [showSecondVideo, setShowSecondVideo] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   
   // Daily teaser variation based on days remaining
@@ -530,16 +531,16 @@ function App() {
         </motion.div>
 
         {/* Banner with Decoration */}
-        <div className="relative z-40 flex justify-center mt-8 mb-12">
+        <div className="relative z-40 flex justify-center mt-4 md:mt-8 mb-6 md:mb-12 px-4">
           <motion.div 
             className="relative"
             variants={bannerReveal}
             initial="hidden"
             animate="visible"
           >
-            {/* Left decoration - Floating stars */}
+            {/* Left decoration - Floating stars - Hidden on mobile */}
             <motion.div 
-              className="absolute -left-16 top-0 flex flex-col gap-2"
+              className="hidden md:flex absolute -left-16 top-0 flex-col gap-2"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -578,7 +579,7 @@ function App() {
 
             {/* Enhanced Banner with gradient and shadows */}
             <motion.div 
-              className="relative px-16 py-8 rounded-2xl overflow-hidden"
+              className="relative px-6 py-4 md:px-16 md:py-8 rounded-2xl overflow-hidden"
               style={{
                 background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(168, 85, 247, 0.15) 50%, rgba(59, 130, 246, 0.15) 100%)',
                 backdropFilter: 'blur(20px)',
@@ -623,7 +624,7 @@ function App() {
               <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-purple-400/60 rounded-bl-lg" />
               <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-pink-400/60 rounded-br-lg" />
 
-              <h2 className="text-4xl md:text-6xl font-bold relative z-10 tracking-tight">
+              <h2 className="text-2xl md:text-4xl lg:text-6xl font-bold relative z-10 tracking-tight text-center">
                 <span className="text-white drop-shadow-[0_2px_10px_rgba(255,255,255,0.5)]">Happy Birthday</span>
                 {' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 italic drop-shadow-[0_2px_15px_rgba(236,72,153,0.8)]">
@@ -648,9 +649,21 @@ function App() {
               </h2>
             </motion.div>
 
-            {/* Right decoration - Magic elements */}
+            {/* Hidden Video Button */}
+            <motion.button
+              onClick={() => setShowSecondVideo(true)}
+              className="absolute -bottom-8 md:-bottom-12 left-1/2 -translate-x-1/2 opacity-20 hover:opacity-100 transition-opacity duration-500 text-base md:text-sm text-violet-400/50 hover:text-pink-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.2 }}
+              transition={{ duration: 0.8, delay: 1.5 }}
+              whileHover={{ scale: 1.2 }}
+            >
+              🎥
+            </motion.button>
+
+            {/* Right decoration - Magic elements - Hidden on mobile */}
             <motion.div 
-              className="absolute -right-16 top-0 flex flex-col gap-2"
+              className="hidden md:flex absolute -right-16 top-0 flex-col gap-2"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
@@ -718,34 +731,35 @@ function App() {
         </div>
 
         {/* Center Content */}
-        <div className="flex-1 flex items-center justify-center px-6">
+        <div className="flex-1 flex items-center justify-center px-4 md:px-6">
           <motion.div 
-            className="relative z-10 text-center max-w-4xl mx-auto space-y-8"
+            className="relative z-10 text-center max-w-4xl mx-auto space-y-4 md:space-y-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            <p className="text-lg text-violet-300 fade-in">
+            <p className="text-base md:text-lg text-violet-300 fade-in">
               The celebration is just beginning...
             </p>
 
-            {/* Large Card with Image */}
+            {/* Secret sparkle button - plays spoof.mov */}
             <motion.button
-              onClick={() => setShowVideoModal(true)}
+              onClick={() => setShowVideoPlayer(true)}
               className="opacity-20 hover:opacity-100 transition-opacity duration-500 text-xs text-violet-400/50 hover:text-violet-300"
               whileHover={{ scale: 1.1 }}
             >
               ✨
             </motion.button>
 
+            {/* Large Card with Image */}
             <motion.div 
-              className="glass-card-large rounded-3xl overflow-hidden max-w-3xl mx-auto mt-8"
+              className="glass-card-large rounded-2xl md:rounded-3xl overflow-hidden max-w-3xl mx-auto mt-4 md:mt-8"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
               whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
             >
-              <div className="relative h-80 overflow-hidden">
+              <div className="relative h-60 md:h-80 overflow-hidden">
                 <img 
                   src="/main2.jpeg" 
                   alt="Birthday celebration"
@@ -763,8 +777,8 @@ function App() {
                   }}
                 />
               </div>
-              <div className="p-6 text-left">
-                <h3 className="text-2xl font-bold text-white mb-4">A Magical Day for Someone Like You</h3>
+              <div className="p-4 md:p-6 text-left">
+                <h3 className="text-lg md:text-2xl font-bold text-white mb-2 md:mb-4">A Magical Day for Someone Like You</h3>
               </div>
             </motion.div>
 
@@ -795,6 +809,32 @@ function App() {
             >
               <button
                 onClick={() => setShowVideoPlayer(false)}
+                className="absolute top-4 right-4 z-50 text-white text-2xl hover:text-pink-400 transition-colors"
+              >
+                ✕
+              </button>
+              <video
+                src="/gud.mov"
+                controls
+                autoPlay
+                className="max-w-full max-h-full rounded-lg"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        <AnimatePresence>
+          {showSecondVideo && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <button
+                onClick={() => setShowSecondVideo(false)}
                 className="absolute top-4 right-4 z-50 text-white text-2xl hover:text-pink-400 transition-colors"
               >
                 ✕
