@@ -73,16 +73,8 @@ const getTargetDate = () => {
 const calculateTimeLeft = (targetDate) => {
   const now = new Date();
   const difference = targetDate - now;
-  if (difference <= 0) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0, ended: true };
-  }
-  return {
-    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((difference / (1000 * 60)) % 60),
-    seconds: Math.floor((difference / 1000) % 60),
-    ended: false,
-  };
+  // Always return 0 for countdown timer
+  return { days: 0, hours: 0, minutes: 0, seconds: 0, ended: false };
 };
 
 // Animation variants
@@ -348,7 +340,7 @@ function App() {
   }, [timeLeft.ended, stage]);
 
   // PHASE 0: COUNTDOWN / LOCKED STATE
-  if (!timeLeft.ended && !previewMode) {
+  if (!timeLeft.ended && !previewMode && stage === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#120018] via-[#1a0a2e] to-[#2a0b3d] flex flex-col items-center justify-center px-4 relative overflow-hidden">
         <AnimatedGradient stage={0} />
@@ -481,6 +473,40 @@ function App() {
               <span className="text-white font-semibold">100% Calibrating...</span>
             </div>
           </motion.div>
+
+          {/* Proceed Button */}
+          <motion.div
+            className="mt-8"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+          >
+            <motion.button
+              onClick={() => {
+                setStage(1);
+                setMood('magical');
+              }}
+              className="px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 rounded-2xl text-white font-semibold text-lg shadow-xl hover:shadow-2xl transition-all"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{
+                boxShadow: [
+                  "0 10px 40px rgba(236, 72, 153, 0.3)",
+                  "0 10px 60px rgba(236, 72, 153, 0.5)",
+                  "0 10px 40px rgba(236, 72, 153, 0.3)"
+                ]
+              }}
+              transition={{
+                boxShadow: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }}
+            >
+              Proceed
+            </motion.button>
+          </motion.div>
         </motion.div>
       </div>
     );
@@ -494,6 +520,28 @@ function App() {
         <FloatingParticles speedMultiplier={activeMood.particleSpeed} />
         <div className="stars-bg absolute inset-0"></div>
         <div className="vignette absolute inset-0"></div>
+
+        {/* Confetti Effect */}
+        <div className="absolute inset-0 pointer-events-none z-50">
+          <div className="absolute top-10 left-10 w-3 h-3 bg-yellow-400 rounded-full opacity-80 animate-confettiBurst" style={{ animationDelay: '0s', '--tx': '-30px' }}></div>
+          <div className="absolute top-0 left-1/4 w-2 h-4 bg-pink-500 opacity-70 animate-confettiBurst" style={{ animationDelay: '0.15s', '--tx': '40px' }}></div>
+          <div className="absolute top-5 left-1/2 w-3 h-3 bg-blue-400 rounded-full opacity-80 animate-confettiBurst" style={{ animationDelay: '0.05s', '--tx': '-20px' }}></div>
+          <div className="absolute top-0 right-1/4 w-2 h-4 bg-purple-500 opacity-70 animate-confettiBurst" style={{ animationDelay: '0.2s', '--tx': '-50px' }}></div>
+          <div className="absolute top-10 right-10 w-3 h-3 bg-green-400 rounded-full opacity-80 animate-confettiBurst" style={{ animationDelay: '0.1s', '--tx': '35px' }}></div>
+          <div className="absolute top-20 left-20 w-2 h-4 bg-red-500 opacity-70 animate-confettiBurst" style={{ animationDelay: '0.25s', '--tx': '25px' }}></div>
+          <div className="absolute top-0 right-20 w-3 h-3 bg-orange-400 rounded-full opacity-80 animate-confettiBurst" style={{ animationDelay: '0.3s', '--tx': '-40px' }}></div>
+          <div className="absolute top-32 left-1/3 w-2 h-4 bg-cyan-400 opacity-70 animate-confettiBurst" style={{ animationDelay: '0.35s', '--tx': '45px' }}></div>
+          <div className="absolute top-16 right-1/3 w-3 h-3 bg-yellow-300 rounded-full opacity-80 animate-confettiBurst" style={{ animationDelay: '0.4s', '--tx': '-35px' }}></div>
+          <div className="absolute top-8 left-2/3 w-2 h-4 bg-pink-400 opacity-70 animate-confettiBurst" style={{ animationDelay: '0.45s', '--tx': '30px' }}></div>
+          <div className="absolute top-12 left-12 w-2 h-2 bg-purple-300 rounded-full opacity-70 animate-confettiBurst" style={{ animationDelay: '0.5s', '--tx': '-25px' }}></div>
+          <div className="absolute top-4 right-12 w-2 h-2 bg-blue-300 rounded-full opacity-70 animate-confettiBurst" style={{ animationDelay: '0.55s', '--tx': '40px' }}></div>
+          <div className="absolute top-24 left-16 w-2 h-2 bg-yellow-500 rounded-full opacity-60 animate-confettiBurst" style={{ animationDelay: '1s', '--tx': '-15px' }}></div>
+          <div className="absolute top-28 right-24 w-2 h-3 bg-pink-400 opacity-60 animate-confettiBurst" style={{ animationDelay: '1.2s', '--tx': '20px' }}></div>
+          <div className="absolute top-16 left-1/3 w-2 h-2 bg-blue-500 rounded-full opacity-60 animate-confettiBurst" style={{ animationDelay: '1.4s', '--tx': '-25px' }}></div>
+          <div className="absolute top-20 right-1/3 w-2 h-3 bg-purple-400 opacity-60 animate-confettiBurst" style={{ animationDelay: '1.6s', '--tx': '30px' }}></div>
+          <div className="absolute top-12 left-1/2 w-2 h-2 bg-green-500 rounded-full opacity-60 animate-confettiBurst" style={{ animationDelay: '1.8s', '--tx': '-10px' }}></div>
+          <div className="absolute top-36 right-16 w-2 h-3 bg-orange-400 opacity-60 animate-confettiBurst" style={{ animationDelay: '2s', '--tx': '35px' }}></div>
+        </div>
 
         {/* Subtle "Isha" name pattern background */}
         <motion.div
