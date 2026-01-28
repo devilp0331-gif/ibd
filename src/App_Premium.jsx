@@ -372,19 +372,6 @@ function App() {
             </div>
           </div>
         </motion.div>
-        
-        {/* Top Right: Secret Access */}
-        <motion.button 
-          onClick={togglePreview}
-          className="absolute top-6 right-6 glass-pill px-4 py-2 text-xs uppercase tracking-wider text-white hover:bg-white/10 transition-all flex items-center gap-2"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <span>🔒</span> Secret Access
-        </motion.button>
 
         {/* Center Content */}
         <motion.div 
@@ -651,7 +638,7 @@ function App() {
 
             {/* Hidden Video Button */}
             <motion.button
-              onClick={() => setShowSecondVideo(true)}
+              onClick={() => setShowVideoPlayer(true)}
               className="absolute -bottom-8 md:-bottom-12 left-1/2 -translate-x-1/2 opacity-20 hover:opacity-100 transition-opacity duration-500 text-base md:text-sm text-violet-400/50 hover:text-pink-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.2 }}
@@ -742,9 +729,9 @@ function App() {
               The celebration is just beginning...
             </p>
 
-            {/* Secret sparkle button - plays spoof.mov */}
+            {/* Secret sparkle button - shows modal */}
             <motion.button
-              onClick={() => setShowVideoPlayer(true)}
+              onClick={() => setShowVideoModal(true)}
               className="opacity-20 hover:opacity-100 transition-opacity duration-500 text-xs text-violet-400/50 hover:text-violet-300"
               whileHover={{ scale: 1.1 }}
             >
@@ -794,7 +781,7 @@ function App() {
             onClose={() => setShowVideoModal(false)}
             onWatch={() => {
               setShowVideoModal(false);
-              setShowVideoPlayer(true);
+              setShowSecondVideo(true);
             }}
           />
         </AnimatePresence>
