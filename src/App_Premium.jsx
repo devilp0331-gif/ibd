@@ -326,6 +326,17 @@ function App() {
     setPoppedBalloon(null);
     setShowRewind(false);
   };
+  const togglePreview = () => {
+    setPreviewMode(!previewMode);
+    if (!previewMode) {
+      // When entering preview mode, go to stage 1
+      setStage(1);
+      setMood('magical');
+    } else {
+      // When exiting preview mode, reset to stage 0
+      setStage(0);
+    }
+  };
 
   // When countdown ends, show Morning Glow page directly
   useEffect(() => {
@@ -336,7 +347,7 @@ function App() {
   }, [timeLeft.ended, stage]);
 
   // PHASE 0: COUNTDOWN / LOCKED STATE
-  if (!timeLeft.ended) {
+  if (!timeLeft.ended && !previewMode) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#120018] via-[#1a0a2e] to-[#2a0b3d] flex flex-col items-center justify-center px-4 relative overflow-hidden">
         <AnimatedGradient stage={0} />
@@ -361,6 +372,19 @@ function App() {
           </div>
         </motion.div>
         
+        {/* Top Right: Secret Access */}
+        <motion.button 
+          onClick={togglePreview}
+          className="absolute top-6 right-6 glass-pill px-4 py-2 text-xs uppercase tracking-wider text-white hover:bg-white/10 transition-all flex items-center gap-2"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <span>🔒</span> Secret Access
+        </motion.button>
+
         {/* Center Content */}
         <motion.div 
           className="relative z-10 text-center max-w-4xl mx-auto space-y-8"
@@ -470,18 +494,6 @@ function App() {
             </div>
           </motion.div>
         </motion.div>
-
-        {/* Small Preview Button */}
-        <motion.button
-          onClick={() => setStage(1)}
-          className="absolute bottom-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-xs transition-all"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          whileHover={{ opacity: 1, scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          👀
-        </motion.button>
       </div>
     );
   }
