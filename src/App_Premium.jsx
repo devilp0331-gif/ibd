@@ -1,6 +1,59 @@
 import { useState, useEffect } from "react";
+import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Button from "./Button";
+
+const SecretVideoModal = ({ isOpen, onClose, onWatch }) => {
+  const [clickCount, setClickCount] = React.useState(0);
+  
+  if (!isOpen) return null;
+  
+  const handleMaybeLaterClick = () => {
+    const newCount = clickCount + 1;
+    setClickCount(newCount);
+  };
+  
+  const yesButtonScale = 1 + (clickCount * 0.5);
+  
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={clickCount >= 3 ? null : onClose} />
+      <motion.div
+        className="glass-card-large rounded-2xl p-8 max-w-md relative z-10 text-center"
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        transition={{ type: "spring", damping: 20 }}
+      >
+        <h3 className="text-2xl font-bold text-white mb-4">🎥 Secret Surprise</h3>
+        <p className="text-violet-200 mb-6">Would you like to watch a special video?</p>
+        <div className="flex gap-3 justify-center relative">
+          <motion.button
+            onClick={onWatch}
+            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl text-white font-semibold hover:shadow-lg transition-all relative z-20"
+            animate={{ scale: yesButtonScale }}
+            transition={{ type: "spring", stiffness: 300, damping: 15 }}
+            whileHover={{ scale: yesButtonScale * 1.05 }}
+          >
+            Yes, play it! 🎬
+          </motion.button>
+          <button
+            onClick={clickCount >= 3 ? null : handleMaybeLaterClick}
+            className="px-6 py-3 bg-white/10 rounded-xl text-white font-semibold hover:bg-white/20 transition-all relative z-10"
+            disabled={clickCount >= 3}
+            style={{ opacity: clickCount >= 3 ? 0.3 : 1, cursor: clickCount >= 3 ? 'not-allowed' : 'pointer' }}
+          >
+            Maybe later
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 const TARGET_MONTH_INDEX = 0;
 const TARGET_DAY = 28;
@@ -220,6 +273,8 @@ function App() {
   const [showRewind, setShowRewind] = useState(false);
   const [candleBlown, setCandleBlown] = useState(false);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   const shouldReduceMotion = useReducedMotion();
   
   // Daily teaser variation based on days remaining
@@ -675,6 +730,14 @@ function App() {
             </p>
 
             {/* Large Card with Image */}
+            <motion.button
+              onClick={() => setShowVideoModal(true)}
+              className="opacity-20 hover:opacity-100 transition-opacity duration-500 text-xs text-violet-400/50 hover:text-violet-300"
+              whileHover={{ scale: 1.1 }}
+            >
+              ✨
+            </motion.button>
+
             <motion.div 
               className="glass-card-large rounded-3xl overflow-hidden max-w-3xl mx-auto mt-8"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -682,40 +745,26 @@ function App() {
               transition={{ duration: 1, delay: 0.8, ease: [0.34, 1.56, 0.64, 1] }}
               whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
             >
-              <div className="relative h-80 bg-gradient-to-br from-orange-200 via-pink-200 to-purple-300 flex items-center justify-center overflow-hidden">
-                <motion.div 
-                  className="absolute inset-0 opacity-60" 
-                  style={{ 
-                    backgroundImage: 'radial-gradient(circle at 30% 50%, #fbbf24 0%, #fb923c 25%, #ec4899 50%, #a855f7 100%)',
-                    filter: 'blur(40px)'
-                  }}
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.6, 0.8, 0.6]
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
+              <div className="relative h-80 overflow-hidden">
+                <img 
+                  src="/main2.jpeg" 
+                  alt="Birthday celebration"
+                  className="w-full h-full object-cover"
                 />
                 <motion.div 
-                  className="relative text-7xl"
+                  className="absolute inset-0 bg-gradient-to-t from-purple-900/50 to-transparent"
                   animate={{
-                    y: [0, -10, 0],
-                    rotate: [0, 2, -2, 0]
+                    opacity: [0.3, 0.5, 0.3]
                   }}
                   transition={{
                     duration: 6,
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                >
-                  ☁️
-                </motion.div>
+                />
               </div>
               <div className="p-6 text-left">
-                <h3 className="text-2xl font-bold text-white mb-4">A Magical Day for a Special Person</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">A Magical Day for Someone Like You</h3>
               </div>
             </motion.div>
 
@@ -724,6 +773,43 @@ function App() {
             </div>
           </motion.div>
         </div>
+        
+        <AnimatePresence>
+          <SecretVideoModal 
+            isOpen={showVideoModal}
+            onClose={() => setShowVideoModal(false)}
+            onWatch={() => {
+              setShowVideoModal(false);
+              setShowVideoPlayer(true);
+            }}
+          />
+        </AnimatePresence>
+        
+        <AnimatePresence>
+          {showVideoPlayer && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <button
+                onClick={() => setShowVideoPlayer(false)}
+                className="absolute top-4 right-4 z-50 text-white text-2xl hover:text-pink-400 transition-colors"
+              >
+                ✕
+              </button>
+              <video
+                src="/spoof.mov"
+                controls
+                autoPlay
+                className="max-w-full max-h-full rounded-lg"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   }
