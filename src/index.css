@@ -1,0 +1,563 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Glass Morphism */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .glass-card-large {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+  }
+
+  .glow-pink {
+    box-shadow: 0 0 40px rgba(255, 77, 166, 0.4);
+  }
+
+  .glow-border {
+    box-shadow: 0 0 60px rgba(255, 77, 166, 0.3), inset 0 0 40px rgba(255, 77, 166, 0.1);
+  }
+
+  /* Premium Button */
+  .premium-button {
+    background: linear-gradient(135deg, #ff4da6 0%, #ff6b9d 50%, #a855f7 100%);
+    color: white;
+    border-radius: 9999px;
+    font-weight: 600;
+    box-shadow: 0 10px 40px rgba(255, 77, 166, 0.5);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .premium-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 50px rgba(255, 77, 166, 0.7);
+  }
+
+  /* Ribbon Banner */
+  .ribbon-banner {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fcd34d 100%);
+    padding: 2rem 4rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(252, 211, 77, 0.4), 0 0 80px rgba(252, 211, 77, 0.2);
+    position: relative;
+  }
+
+  .ribbon-banner::before,
+  .ribbon-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  .ribbon-banner::before {
+    left: -20px;
+    border-width: 0 20px 20px 0;
+    border-color: transparent #fbbf24 transparent transparent;
+  }
+
+  .ribbon-banner::after {
+    right: -20px;
+    border-width: 20px 20px 0 0;
+    border-color: #fbbf24 transparent transparent transparent;
+  }
+
+  /* Background Effects */
+  .stars-bg {
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+      radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.2), transparent),
+      radial-gradient(1px 1px at 50px 50px, rgba(255, 255, 255, 0.4), transparent),
+      radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.2), transparent),
+      radial-gradient(2px 2px at 90px 10px, rgba(255, 255, 255, 0.3), transparent);
+    background-size: 200px 200px;
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px, 150px 50px;
+    animation: twinkleStars 8s linear infinite;
+  }
+
+  .vignette {
+    box-shadow: inset 0 0 200px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+  }
+
+  .floating-particles::before,
+  .floating-particles::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .floating-particles::before {
+    top: 20%;
+    left: 10%;
+    background: rgba(168, 85, 247, 0.3);
+  }
+
+  .floating-particles::after {
+    bottom: 20%;
+    right: 10%;
+    background: rgba(236, 72, 153, 0.3);
+    animation-delay: 4s;
+  }
+
+  .floating-hearts::before,
+  .floating-hearts::after {
+    content: '💖';
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: floatUp 6s ease-in infinite;
+  }
+
+  .floating-hearts::before {
+    left: 20%;
+    animation-delay: 0s;
+  }
+
+  .floating-hearts::after {
+    right: 20%;
+    animation-delay: 3s;
+  }
+
+  .balloons-float {
+    font-size: 3rem;
+    animation: balloonRise 8s ease-in-out infinite;
+  }
+
+  .confetti-float::before,
+  .confetti-float::after {
+    content: '✨';
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    animation: confettiDrift 5s linear infinite;
+  }
+
+  .confetti-float::before {
+    top: 10%;
+    left: 30%;
+    animation-delay: 0s;
+  }
+
+  .confetti-float::after {
+    top: 20%;
+    right: 30%;
+    animation-delay: 2.5s;
+  }
+
+  .celebration-burst {
+    background: radial-gradient(circle at 50% 50%, rgba(255, 77, 166, 0.2) 0%, transparent 70%);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .cake-illustration {
+    position: relative;
+    filter: drop-shadow(0 20px 40px rgba(255, 77, 166, 0.5));
+  }
+}
+
+@layer utilities {
+  /* Animations */
+  @keyframes twinkleStars {
+    from { opacity: 0.8; }
+    50% { opacity: 1; }
+    to { opacity: 0.8; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-30px) translateX(20px); }
+    50% { transform: translateY(0px) translateX(40px); }
+    75% { transform: translateY(30px) translateX(20px); }
+  }
+
+  @keyframes floatUp {
+    0% { 
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% { 
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes balloonRise {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px) rotate(0deg);
+    }
+    25% {
+      transform: translateY(-20px) translateX(10px) rotate(5deg);
+    }
+    50% {
+      transform: translateY(-40px) translateX(-5px) rotate(-3deg);
+    }
+    75% {
+      transform: translateY(-20px) translateX(5px) rotate(2deg);
+    }
+  }
+
+  @keyframes confettiDrift {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-50px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes flicker {
+    0%, 100% { 
+      opacity: 1; 
+      transform: scale(1) translateY(0); 
+      filter: brightness(1);
+    }
+    20% { 
+      opacity: 0.9; 
+      transform: scale(0.98, 1.02) translateY(-1px); 
+      filter: brightness(1.1);
+    }
+    40% { 
+      opacity: 0.95; 
+      transform: scale(1.02, 0.98) translateY(1px); 
+      filter: brightness(0.95);
+    }
+    60% { 
+      opacity: 1; 
+      transform: scale(0.99, 1.01) translateY(-0.5px); 
+      filter: brightness(1.05);
+    }
+    80% { 
+      opacity: 0.92; 
+      transform: scale(1.01, 0.99) translateY(0.5px); 
+      filter: brightness(1);
+    }
+  }
+
+  .animate-flicker {
+    animation: flicker 1.5s ease-in-out infinite;
+  }
+
+  @keyframes candleGlow {
+    0%, 100% {
+      box-shadow: 
+        0 0 20px rgba(255, 200, 50, 0.5),
+        0 0 40px rgba(255, 150, 50, 0.3),
+        0 0 60px rgba(255, 100, 50, 0.2);
+    }
+    50% {
+      box-shadow: 
+        0 0 30px rgba(255, 200, 50, 0.7),
+        0 0 60px rgba(255, 150, 50, 0.5),
+        0 0 90px rgba(255, 100, 50, 0.3);
+    }
+  }
+
+  @keyframes sparkleRotate {
+    0% { 
+      opacity: 0; 
+      transform: rotate(0deg) scale(0); 
+    }
+    20% { 
+      opacity: 1; 
+      transform: rotate(90deg) scale(1.2); 
+    }
+    80% { 
+      opacity: 1; 
+      transform: rotate(270deg) scale(1); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: rotate(360deg) scale(0); 
+    }
+  }
+
+  @keyframes confettiFall {
+    0% {
+      opacity: 1;
+      transform: translateY(-100px) translateX(0) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(100vh) translateX(var(--drift, 0)) rotate(720deg);
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .slide-down {
+    animation: slideDown 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-flicker {
+    animation: flicker 2s ease-in-out infinite;
+  }
+
+  .animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* Old animations preserved */
+  @keyframes pageEntrance {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes buttonPulse {
+    0%, 100% {
+      box-shadow: 0 0 30px rgba(219, 39, 119, 0.5), 0 0 50px rgba(168, 85, 247, 0.3);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 50px rgba(219, 39, 119, 0.8), 0 0 80px rgba(168, 85, 247, 0.6);
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes buttonRipple {
+    0% { box-shadow: 0 0 0 0 rgba(219, 39, 119, 0.7); }
+    100% { box-shadow: 0 0 0 30px rgba(219, 39, 119, 0); }
+  }
+
+  @keyframes slideOut {
+    to { opacity: 0; transform: translateY(-15px) scale(0.95); }
+  }
+
+  @keyframes bannerDrop {
+    0% { opacity: 0; transform: translateY(-150px) scale(0.85) rotate(-5deg); }
+    50% { opacity: 0.8; transform: translateY(15px) scale(1.08) rotate(2deg); }
+    75% { opacity: 1; transform: translateY(-5px) scale(0.98) rotate(-1deg); }
+    100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+  }
+
+  @keyframes bannerSway {
+    0%, 100% { transform: rotate(-2deg) translateY(0px); }
+    25% { transform: rotate(1deg) translateY(-3px); }
+    50% { transform: rotate(2deg) translateY(0px); }
+    75% { transform: rotate(-1deg) translateY(-3px); }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.6) rotate(0deg); }
+    25% { opacity: 0.8; transform: scale(1.3) rotate(90deg); }
+    50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
+    75% { opacity: 0.8; transform: scale(1.3) rotate(270deg); }
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes cakeEntrance {
+    0% { opacity: 0; transform: scale(0.4) translateY(40px) rotate(-15deg); }
+    40% { opacity: 0.8; transform: scale(1.15) translateY(-15px) rotate(5deg); }
+    70% { opacity: 1; transform: scale(0.95) translateY(5px) rotate(-2deg); }
+    100% { opacity: 1; transform: scale(1) translateY(0) rotate(0deg); }
+  }
+
+  @keyframes cakeBreath {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.03) translateY(-3px); }
+  }
+
+  @keyframes cakeGlow {
+    0%, 100% { box-shadow: 0 15px 60px rgba(251, 191, 36, 0.4), 0 0 30px rgba(236, 72, 153, 0.3); }
+    50% { box-shadow: 0 15px 90px rgba(251, 191, 36, 0.7), 0 0 60px rgba(236, 72, 153, 0.6); }
+  }
+
+  @keyframes cakeParticles {
+    0% { opacity: 0; transform: translateY(0) scale(0); }
+    50% { opacity: 1; transform: translateY(-20px) scale(1.5); }
+    100% { opacity: 0; transform: translateY(-40px) scale(0.5); }
+  }
+
+  @keyframes balloonFloat {
+    0% { opacity: 0; transform: translateY(120vh) scale(0.6) rotate(0deg); }
+    60% { opacity: 1; transform: translateY(10px) scale(1.1) rotate(5deg); }
+    100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+  }
+
+  @keyframes balloonDrift {
+    0%, 100% { transform: translateX(-12px) rotate(-2deg); }
+    50% { transform: translateX(12px) rotate(2deg); }
+  }
+
+  @keyframes balloonBob {
+    0%, 100% { transform: translateY(-12px); }
+    50% { transform: translateY(12px); }
+  }
+
+  @keyframes balloonString {
+    0%, 100% { transform: scaleY(1) rotate(0deg); }
+    50% { transform: scaleY(1.05) rotate(2deg); }
+  }
+
+  @keyframes confettiBurst {
+    0% { opacity: 1; transform: translateY(0) translateX(0) rotate(0deg) scale(1); }
+    10% { opacity: 1; transform: translateY(-30px) translateX(calc(var(--tx, 0) * 0.3)) rotate(180deg) scale(1.2); }
+    100% { opacity: 0; transform: translateY(130vh) translateX(var(--tx, 0)) rotate(1440deg) scale(0.2); }
+  }
+
+  @keyframes confettiSlow {
+    0% { opacity: 1; transform: translateY(0) translateX(0) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(100vh) translateX(var(--tx, 0)) rotate(720deg); }
+  }
+
+  @keyframes finalMessage {
+    0% { opacity: 0; transform: scale(0.85) translateY(20px); }
+    50% { opacity: 1; transform: scale(1.08) translateY(-5px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+    50% { text-shadow: 0 0 60px rgba(255, 255, 255, 1), 0 0 80px rgba(236, 72, 153, 0.8); }
+    100% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+  }
+
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    5%, 15% { transform: scale(1.25) rotate(-5deg); }
+    10%, 20% { transform: scale(1.15) rotate(5deg); }
+    25% { transform: scale(1); }
+  }
+
+  @keyframes bgFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes bgPulse {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes nameBannerDrop {
+    0% { opacity: 0; transform: translateY(-200px) scale(0.7) rotate(-10deg); }
+    60% { opacity: 0.9; transform: translateY(20px) scale(1.12) rotate(3deg); }
+    80% { opacity: 1; transform: translateY(-8px) scale(0.98) rotate(-2deg); }
+    100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+  }
+
+  @keyframes nameBannerFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-8px) scale(1.02); }
+  }
+
+  @keyframes shimmerGlow {
+    0% { text-shadow: 0 0 20px rgba(255, 182, 193, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); filter: brightness(1); }
+    50% { text-shadow: 0 0 50px rgba(255, 182, 193, 1), 0 0 80px rgba(255, 215, 0, 0.9), 0 0 100px rgba(168, 85, 247, 0.6); filter: brightness(1.3); }
+    100% { text-shadow: 0 0 20px rgba(255, 182, 193, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); filter: brightness(1); }
+  }
+
+  @keyframes shimmerMove {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes starBurst {
+    0% { opacity: 1; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
+    100% { opacity: 0; transform: scale(2) rotate(360deg); }
+  }
+
+  .animate-pageEntrance { animation: pageEntrance 800ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-fadeIn { animation: fadeIn 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+  .animate-buttonPulse { animation: buttonPulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite, buttonRipple 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  .animate-slideOut { animation: slideOut 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
+  .animate-bannerDrop { animation: bannerDrop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-bannerSway { animation: bannerSway 5s ease-in-out infinite; }
+  .animate-sparkle { animation: sparkle 2.5s ease-in-out infinite; }
+  .animate-twinkle { animation: twinkle 1.5s ease-in-out infinite; }
+  .animate-cakeEntrance { animation: cakeEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-cakeBreath { animation: cakeBreath 4s ease-in-out infinite; }
+  .animate-cakeGlow { animation: cakeGlow 3s ease-in-out infinite; }
+  .animate-cakeParticles { animation: cakeParticles 2s ease-out infinite; }
+  .animate-balloonFloat { animation: balloonFloat 3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-balloonDrift { animation: balloonDrift 7s ease-in-out infinite; }
+  .animate-balloonBob { animation: balloonBob 5s ease-in-out infinite; }
+  .animate-balloonString { animation: balloonString 3s ease-in-out infinite; }
+  .animate-confettiBurst { animation: confettiBurst 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+  .animate-confettiSlow { animation: confettiSlow 8s ease-in infinite; }
+  .animate-finalMessage { animation: finalMessage 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-glowPulse { animation: glowPulse 2.5s ease-in-out 1; }
+  .animate-heartBeat { display: inline-block; animation: heartBeat 2s ease-in-out infinite; }
+  .animate-bgFade { animation: bgFade 1.2s ease-out forwards; }
+  .animate-bgPulse { background-size: 200% 200%; animation: bgPulse 10s ease infinite; }
+  .animate-nameBannerDrop { animation: nameBannerDrop 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  .animate-nameBannerFloat { animation: nameBannerFloat 4s ease-in-out infinite; }
+  .animate-shimmerGlow { animation: shimmerGlow 3s ease-in-out infinite; }
+  .animate-shimmerMove { background-size: 200% auto; animation: shimmerMove 3s linear infinite; }
+  .animate-starBurst { animation: starBurst 1.5s ease-out forwards; }
+}
